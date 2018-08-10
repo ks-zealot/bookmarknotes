@@ -1,31 +1,16 @@
 package org.bookmarknotes.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Created by zealot on 08.08.18.
  */
-
+@Getter
+@Setter
+@NoArgsConstructor
 public class NoteDTO {
     public Long id;
     public String note;
-
-    public NoteDTO() {
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public NoteDTO setNote(String note) {
-        this.note = note;
-        return this;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public NoteDTO setId(Long id) {
-        this.id = id;
-        return this;
-    }
 }

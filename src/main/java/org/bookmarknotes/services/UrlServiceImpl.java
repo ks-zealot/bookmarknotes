@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by zealot on 08.08.18.
@@ -30,7 +29,9 @@ public class UrlServiceImpl extends CommonService<UrlDTO, URLEntity> implements 
     public void save(String url) {
         UserEntity user = getUser();
         URLEntity entity = new URLEntity();
-        repository.save(entity.setOwner(user).setUrl(url));
+        entity.setOwner(user);
+        entity.setUrl(url);
+        repository.save(entity);
     }
 
     @Override
