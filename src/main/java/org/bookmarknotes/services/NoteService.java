@@ -16,8 +16,6 @@ public interface NoteService {
 
     List<NoteDTO> findByUser(UserEntity u, PageRequest of);
 
-    List<NoteDTO> findAllById(List<Long> ids);
-
     void delete(Long id);
 
     List<NoteDTO> list(int offset, int limit);

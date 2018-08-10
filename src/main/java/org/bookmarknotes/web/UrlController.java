@@ -27,9 +27,10 @@ public class UrlController {
         return service.list(requestDTO.getOffset(), requestDTO.getLimit());
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<UrlDTO> search(@ModelAttribute SearchRequestDTO requestDTO) {
-        return service.search(requestDTO.getOffset(), requestDTO.getLimit(), requestDTO.getTerm());
+        List l = service.search(requestDTO.getOffset(), requestDTO.getLimit(), requestDTO.getTerm());
+        return l;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

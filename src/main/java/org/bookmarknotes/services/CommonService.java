@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by zealot on 08.08.18.
  */
-public abstract class CommonService<T> {
+public abstract class CommonService<T, R> {
     private UserRepository userRepository;
     @PersistenceContext
     private EntityManager entityManager;
@@ -36,9 +36,11 @@ public abstract class CommonService<T> {
 
     public List<T> search(int offset, int limit, String search) {
 
-    return  searchInSearchEngine(new SearchRequest()
-                .setOffset(offset).setLimit(limit).setTerm(search).setUser(getUser()));
+       return  map(searchInSearchEngine(new SearchRequest()
+                .setOffset(offset).setLimit(limit).setTerm(search).setUser(getUser())));
     }
+
+    protected abstract List<T> map(List<R> ts);
 
 
     protected UserEntity castToUser(UserDetails user) {
@@ -53,7 +55,7 @@ public abstract class CommonService<T> {
 
     public abstract void delete(Long id);
 
-    protected List<T> searchInSearchEngine(SearchRequest searchRequest) {
+    protected List searchInSearchEngine(SearchRequest searchRequest) {
         QueryBuilder qb = getSearchManager().getSearchFactory().buildQueryBuilder().forEntity(getEntityClass()).get();
         Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1).onFields(getFields())
                 .matching(searchRequest.getTerm()).createQuery();

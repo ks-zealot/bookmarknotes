@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -18,7 +19,7 @@ import java.util.stream.StreamSupport;
  * Created by zealot on 08.08.18.
  */
 @Service
-public class UrlServiceImpl extends CommonService<UrlDTO> implements UrlService {
+public class UrlServiceImpl extends CommonService<UrlDTO, URLEntity> implements UrlService {
     private URLRepository repository;
     private ModelMapper modelMapper;
 
@@ -37,23 +38,13 @@ public class UrlServiceImpl extends CommonService<UrlDTO> implements UrlService 
     @Override
     @Transactional
     public List<UrlDTO> findByUser(UserEntity u, PageRequest of) {
-        return repository.findByUser(u, of).stream().map(urlEntity
-                -> convert(urlEntity)).collect(Collectors.toList());
-    }
-
-    private UrlDTO convert(URLEntity urlEntity) {
-        return modelMapper.map(urlEntity, UrlDTO.class);
+        return map(repository.findByUser(u, of));
     }
 
     @Override
-    @Transactional
-    public List<UrlDTO> findAllById(List<Long> ids) {
-        return StreamSupport.stream(repository.findAllById(ids).spliterator(),
-                false).map(urlEntity
-                -> convert(urlEntity)).collect(Collectors.toList());
+    protected List<UrlDTO> map(List<URLEntity> urlDTOs) {
+        return urlDTOs.stream().map(urlEntity -> modelMapper.map(urlEntity, UrlDTO.class)).collect(Collectors.toList());
     }
-
-
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {

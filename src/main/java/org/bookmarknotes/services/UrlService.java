@@ -15,7 +15,6 @@ public interface UrlService {
 
     List<UrlDTO> findByUser(UserEntity u, PageRequest of);
 
-    List<UrlDTO> findAllById(List<Long> ids) ;
 
     void delete(Long id) ;
 
