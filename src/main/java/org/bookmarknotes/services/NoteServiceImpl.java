@@ -4,22 +4,20 @@ import org.bookmarknotes.dto.NoteDTO;
 import org.bookmarknotes.entities.Note;
 import org.bookmarknotes.entities.UserEntity;
 import org.bookmarknotes.repository.NoteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by zealot on 08.08.18.
  */
 @Service
 public class NoteServiceImpl extends CommonService<NoteDTO, Note> implements NoteService{
+
     private NoteRepository noteRepository;
-    private ModelMapper mapper;
     @Autowired
     public NoteServiceImpl setNoteRepository(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
@@ -34,15 +32,16 @@ public class NoteServiceImpl extends CommonService<NoteDTO, Note> implements Not
         entity.setOwner(getUser());
         noteRepository.save(entity);
     }
-    @Override
-    protected List<NoteDTO> map(List<Note> notes) {
-        return notes.stream().map(note -> mapper.map(note, NoteDTO.class)).collect(Collectors.toList());
-    }
 
     @Override
     @Transactional
     public List<NoteDTO> findByUser(UserEntity u, PageRequest of) {
         return map(noteRepository.findByUser(u, of));
+    }
+
+    @Override
+    protected Class<? extends NoteDTO> getDTOClass() {
+        return NoteDTO.class;
     }
 
 
@@ -57,12 +56,6 @@ public class NoteServiceImpl extends CommonService<NoteDTO, Note> implements Not
     public void delete(Long id) {
         noteRepository.deleteById(id);
     };
-
-    @Autowired
-    public NoteServiceImpl setMapper(ModelMapper mapper) {
-        this.mapper = mapper;
-        return this;
-    }
 
 
 }

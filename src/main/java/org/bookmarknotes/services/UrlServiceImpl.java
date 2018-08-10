@@ -40,9 +40,10 @@ public class UrlServiceImpl extends CommonService<UrlDTO, URLEntity> implements 
     }
 
     @Override
-    protected List<UrlDTO> map(List<URLEntity> urlDTOs) {
-        return urlDTOs.stream().map(urlEntity -> modelMapper.map(urlEntity, UrlDTO.class)).collect(Collectors.toList());
+    protected Class<? extends UrlDTO> getDTOClass() {
+        return UrlDTO.class;
     }
+
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
