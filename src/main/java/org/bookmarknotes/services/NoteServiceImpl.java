@@ -1,10 +1,7 @@
 package org.bookmarknotes.services;
 
-import org.aspectj.weaver.ast.Not;
 import org.bookmarknotes.dto.NoteDTO;
-import org.bookmarknotes.dto.UrlDTO;
 import org.bookmarknotes.entities.Note;
-import org.bookmarknotes.entities.URLEntity;
 import org.bookmarknotes.entities.UserEntity;
 import org.bookmarknotes.repository.NoteRepository;
 import org.modelmapper.ModelMapper;
@@ -15,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by zealot on 08.08.18.

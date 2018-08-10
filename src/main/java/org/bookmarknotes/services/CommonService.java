@@ -1,7 +1,6 @@
 package org.bookmarknotes.services;
 
 import org.apache.lucene.search.Query;
-import org.bookmarknotes.entities.URLEntity;
 import org.bookmarknotes.entities.UserEntity;
 import org.bookmarknotes.repository.UserRepository;
 import org.bookmarknotes.search.SearchRequest;
