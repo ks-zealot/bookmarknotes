@@ -1,15 +1,15 @@
 package org.bookmarknotes.web;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by zealot on 08.08.18.
  */
-@RestController
+@Controller
 public class HelloController {
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return "index";
     }
 }

@@ -20,11 +20,12 @@ public class NoteController {
         service.save(note);
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<NoteDTO> list(@ModelAttribute SearchRequestDTO requestDTO) {
         return service.list(requestDTO.getOffset(), requestDTO.getLimit());
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     public List<NoteDTO> search(@ModelAttribute SearchRequestDTO requestDTO) {
         return service.search(requestDTO.getOffset(), requestDTO.getLimit(), requestDTO.getTerm());
     }
